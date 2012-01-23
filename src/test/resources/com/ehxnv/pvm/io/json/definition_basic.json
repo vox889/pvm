@@ -1,0 +1,13 @@
+{
+    "start": { "handler": "startHandler", "next": "process1" },
+
+    "process_process1": { "handler": "process1Handler", "next": "junction1" },
+
+    "junction_junction1": { "handler": "junction1Handler", "next": ["process2", "process3"] },
+    
+    "process_process2": { "handler": "process2Handler", "next": "end1" },
+
+    "process_process3": { "handler": "process3Handler", "next": "end1" },
+
+    "end_end1": { "handler": "end1Handler" }
+}

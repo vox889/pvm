@@ -1,0 +1,11 @@
+{
+    "first_name": "string",
+    
+    "last_name": "string",
+    
+    "age": "integer",
+
+    "married": "boolean",
+    
+    "salary": "decimal"
+}
