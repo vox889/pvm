@@ -1,0 +1,5 @@
+PVM is a graph based process executor which uses:
+- JSON to model process flows i.e. nodes, transitions and handlers
+- JSON to model process input and output data model
+- Mozilla Rhino scripting engine to execute process node logic
+
