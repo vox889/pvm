@@ -25,86 +25,37 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.ehxnv.pvm.api;
-import java.io.Serializable;
+package com.ehxnv.pvm.repository.db;
 
-import static com.ehxnv.pvm.api.util.ValidationUtil.*;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.util.Collections;
+import java.util.Map;
 
 /**
- * Represents a process metadata, which at the moment contains:
- * <ul>
- *   <li>process name</li>
- *   <li>process version</li>
- * </ul>
- *
+ * Implementation of DatabaseBasedProcessRepository which uses HSQL as the underlying database.
  * @author Eka Lie
  */
-public class ProcessMetadata implements Serializable {
+public class HSQLProcessRepository extends DatabaseBasedProcessRepository {
 
-    /** Process name. **/
-    private String name;
-    /** Process version. **/
-    private String version;
+    /** Database name to be used. **/
+    private String dbName;
 
     /**
      * Constructor.
-     * @param name process name
-     * @param version process version
+     * @param dbName database name
      */
-    public ProcessMetadata(final String name, final String version) {
-        checkForNull("Process name", name);
-        checkForNull("Process version", version);
-        this.name = name;
-        this.version = version;
-    }
-
-    /**
-     * Get process name.
-     * @return process name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get process version.
-     * @return process version
-     */
-    public String getVersion() {
-        return version;
+    public HSQLProcessRepository(final String dbName) {
+        this.dbName = dbName;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ProcessMetadata that = (ProcessMetadata) o;
-
-        if (!name.equals(that.name)) return false;
-        if (!version.equals(that.version)) return false;
-
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + version.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String toString() {
-        return name + "[" + version + "]";
+    protected EntityManagerFactory buildEntityManagerFactory() {
+        Map<String, String> emfProps = Collections.singletonMap("javax.persistence.jdbc.url",
+                "jdbc:hsqldb:file:" + dbName + ";shutdown=true");
+        return Persistence.createEntityManagerFactory("repository-hsql", emfProps);
     }
 }

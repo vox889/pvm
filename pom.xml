@@ -12,5 +12,7 @@
         <module>pvm-parent</module>
         <module>pvm-api</module>
         <module>pvm-core</module>
+        <module>pvm-repository-api</module>
+        <module>pvm-repository</module>
   </modules>
 </project>

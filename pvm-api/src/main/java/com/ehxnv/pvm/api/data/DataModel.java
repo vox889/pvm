@@ -27,6 +27,7 @@
 
 package com.ehxnv.pvm.api.data;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Collections;
@@ -37,7 +38,7 @@ import static com.ehxnv.pvm.api.util.ValidationUtil.*;
  * 
  * @author Eka Lie
  */
-public class DataModel {
+public class DataModel implements Serializable {
 
     /** Model name. **/
     private String name;

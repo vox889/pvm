@@ -25,86 +25,59 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.ehxnv.pvm.api;
-import java.io.Serializable;
+package com.ehxnv.pvm.api.repository;
 
-import static com.ehxnv.pvm.api.util.ValidationUtil.*;
+import com.ehxnv.pvm.api.Process;
+import com.ehxnv.pvm.api.ProcessMetadata;
 
 /**
- * Represents a process metadata, which at the moment contains:
+ * Represents an repository of processes that allows:
  * <ul>
- *   <li>process name</li>
- *   <li>process version</li>
+ *  <li>add process to repository</li>
+ *  <li>update process in repository</li>
+ *  <li>find process from repository</li>
+ *  <li>delete process from repository</li>
  * </ul>
- *
  * @author Eka Lie
  */
-public class ProcessMetadata implements Serializable {
-
-    /** Process name. **/
-    private String name;
-    /** Process version. **/
-    private String version;
+public interface ProcessRepository {
 
     /**
-     * Constructor.
-     * @param name process name
-     * @param version process version
+     * Initialize the repository before it can be used.
      */
-    public ProcessMetadata(final String name, final String version) {
-        checkForNull("Process name", name);
-        checkForNull("Process version", version);
-        this.name = name;
-        this.version = version;
-    }
+    void initialize();
 
     /**
-     * Get process name.
-     * @return process name
+     * Shutdown the repository for any resource cleanup
      */
-    public String getName() {
-        return name;
-    }
+    void shutdown();
 
     /**
-     * Get process version.
-     * @return process version
+     * Add given process to repository.
+     * @param process process to be added
+     * @throws ProcessAlreadyExistException if given process already exist (by comparing process metadata)
      */
-    public String getVersion() {
-        return version;
-    }
+    void addProcess(Process process) throws ProcessAlreadyExistException;
 
     /**
-     * {@inheritDoc}
+     * Update a process information given it's metadata.
+     * @param processMetadata process metadata
+     * @param process updated process
+     * @throws ProcessNotExistException if process can't be found (by comparing process metadata)
      */
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ProcessMetadata that = (ProcessMetadata) o;
-
-        if (!name.equals(that.name)) return false;
-        if (!version.equals(that.version)) return false;
-
-        return true;
-    }
+    void updateProcess(ProcessMetadata processMetadata, Process process) throws ProcessNotExistException;
 
     /**
-     * {@inheritDoc}
+     * Find a process given it's metadata.
+     * @param processMetadata process metadata
+     * @return process or NULL if process can't be found
      */
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + version.hashCode();
-        return result;
-    }
+    Process findProcess(ProcessMetadata processMetadata);
 
     /**
-     * {@inheritDoc}
+     * Delete a process given it's metadata.
+     * @param processMetadata process metadata
+     * @return true if process is deleted, false otherwise
      */
-    @Override
-    public String toString() {
-        return name + "[" + version + "]";
-    }
+    boolean deleteProcess(ProcessMetadata processMetadata);
 }

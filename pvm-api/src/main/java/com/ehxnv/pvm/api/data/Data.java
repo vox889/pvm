@@ -29,6 +29,9 @@ package com.ehxnv.pvm.api.data;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.Serializable;
+
 import static com.ehxnv.pvm.api.util.ValidationUtil.*;
 
 /**
@@ -39,7 +42,7 @@ import static com.ehxnv.pvm.api.util.ValidationUtil.*;
  * 
  * @author Eka Lie
  */
-public abstract class Data<T> {
+public abstract class Data<T> implements Serializable {
 
     /** Logger. **/
     private static final Logger LOGGER = LoggerFactory.getLogger(Data.class); 

@@ -25,86 +25,24 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.ehxnv.pvm.api;
-import java.io.Serializable;
+package com.ehxnv.pvm.api.repository;
 
-import static com.ehxnv.pvm.api.util.ValidationUtil.*;
+import com.ehxnv.pvm.api.ProcessMetadata;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Represents a process metadata, which at the moment contains:
- * <ul>
- *   <li>process name</li>
- *   <li>process version</li>
- * </ul>
- *
+ * Unit test for ProcessAlreadyExistException.
  * @author Eka Lie
  */
-public class ProcessMetadata implements Serializable {
-
-    /** Process name. **/
-    private String name;
-    /** Process version. **/
-    private String version;
+public class ProcessAlreadyExistExceptionTest {
 
     /**
-     * Constructor.
-     * @param name process name
-     * @param version process version
+     * Test getMessage method of ProcessAlreadyExistException.
      */
-    public ProcessMetadata(final String name, final String version) {
-        checkForNull("Process name", name);
-        checkForNull("Process version", version);
-        this.name = name;
-        this.version = version;
-    }
-
-    /**
-     * Get process name.
-     * @return process name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get process version.
-     * @return process version
-     */
-    public String getVersion() {
-        return version;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ProcessMetadata that = (ProcessMetadata) o;
-
-        if (!name.equals(that.name)) return false;
-        if (!version.equals(that.version)) return false;
-
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + version.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String toString() {
-        return name + "[" + version + "]";
+    @Test
+    public void testMsg() {
+        ProcessAlreadyExistException exception = new ProcessAlreadyExistException(new ProcessMetadata("process", "1.0"));
+        assertEquals("process[1.0] already exist in repository", exception.getMessage());
     }
 }

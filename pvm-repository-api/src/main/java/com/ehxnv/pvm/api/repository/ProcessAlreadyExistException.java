@@ -25,86 +25,34 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.ehxnv.pvm.api;
-import java.io.Serializable;
+package com.ehxnv.pvm.api.repository;
 
-import static com.ehxnv.pvm.api.util.ValidationUtil.*;
+import com.ehxnv.pvm.api.ProcessMetadata;
 
 /**
- * Represents a process metadata, which at the moment contains:
- * <ul>
- *   <li>process name</li>
- *   <li>process version</li>
- * </ul>
- *
+ * Exception thrown when a process already exist in repository.
  * @author Eka Lie
  */
-public class ProcessMetadata implements Serializable {
+public class ProcessAlreadyExistException extends Exception {
 
-    /** Process name. **/
-    private String name;
-    /** Process version. **/
-    private String version;
+    /** Error message. **/
+    private static final String ERROR_MSG = "%s already exist in repository";
 
     /**
      * Constructor.
-     * @param name process name
-     * @param version process version
+     * @param processMetadata process metadata
      */
-    public ProcessMetadata(final String name, final String version) {
-        checkForNull("Process name", name);
-        checkForNull("Process version", version);
-        this.name = name;
-        this.version = version;
+    public ProcessAlreadyExistException(final ProcessMetadata processMetadata) {
+        super(String.format(ERROR_MSG, processMetadata.toString()));
     }
 
     /**
-     * Get process name.
-     * @return process name
+     * Constructor.
+     * @param processMetadata process metadata
+     * @param cause exception cause
      */
-    public String getName() {
-        return name;
+    public ProcessAlreadyExistException(final ProcessMetadata processMetadata, final Throwable cause) {
+        super(String.format(ERROR_MSG, processMetadata.toString()), cause);
     }
 
-    /**
-     * Get process version.
-     * @return process version
-     */
-    public String getVersion() {
-        return version;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ProcessMetadata that = (ProcessMetadata) o;
-
-        if (!name.equals(that.name)) return false;
-        if (!version.equals(that.version)) return false;
-
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + version.hashCode();
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String toString() {
-        return name + "[" + version + "]";
-    }
 }

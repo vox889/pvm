@@ -32,12 +32,14 @@ import com.ehxnv.pvm.api.data.DataModel;
 import com.ehxnv.pvm.api.graph.Node;
 import com.ehxnv.pvm.api.graph.StartNode;
 
+import java.io.Serializable;
+
 /**
  * Represents a process.
  * 
  * @author Eka Lie
  */
-public interface Process {
+public interface Process extends Serializable {
 
     /**
      * Get process metadata.

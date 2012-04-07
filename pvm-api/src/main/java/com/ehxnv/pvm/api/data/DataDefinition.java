@@ -27,6 +27,8 @@
 
 package com.ehxnv.pvm.api.data;
 
+import java.io.Serializable;
+
 import static com.ehxnv.pvm.api.util.ValidationUtil.*;
 
 /**
@@ -38,7 +40,7 @@ import static com.ehxnv.pvm.api.util.ValidationUtil.*;
  * 
  * @author Eka Lie
  */
-public class DataDefinition {
+public class DataDefinition implements Serializable {
 
     /** Data name. **/
     private String dataName;

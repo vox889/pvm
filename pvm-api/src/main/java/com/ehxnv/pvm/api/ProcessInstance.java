@@ -28,6 +28,8 @@
 package com.ehxnv.pvm.api;
 
 import com.ehxnv.pvm.api.data.Data;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -36,7 +38,7 @@ import java.util.Set;
  * 
  * @author Eka Lie
  */
-public interface ProcessInstance {
+public interface ProcessInstance extends Serializable {
 
     /**
      * Get process instance id.
