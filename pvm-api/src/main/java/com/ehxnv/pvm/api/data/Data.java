@@ -89,7 +89,6 @@ public abstract class Data<T> implements Serializable {
      * @param value new data value
      */
     public void setValue(final Object value) throws InvalidValueException {
-        // TODO: should we throw exception here if data can't be converted?
         T oldValue = this.value;
         setValueInternal(value);
         LOGGER.debug("Setting '{}' value from [{}] to [{}]", new Object[] {name, oldValue, this.value});

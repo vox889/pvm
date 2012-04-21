@@ -25,49 +25,28 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.ehxnv.pvm.io.json;
-
-import com.ehxnv.pvm.api.io.ProcessIOException;
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+package com.ehxnv.pvm.api.data.io;
 
 /**
- * Helper class to populate a {@link JSONProcess} JavaScript execution content.
- * 
+ * Exception thrown when IO exception occurred while reading/writing data from/to input/output stream.
  * @author Eka Lie
  */
-class JSONProcessLogicPopulator {
-
-    /** Logger. **/
-    private static final Logger LOGGER = LoggerFactory.getLogger(JSONProcessLogicPopulator.class);
+public class DataIOException extends Exception {
 
     /**
-     * Populate JSONProcess JavaScript execution logic content from given input stream.
-     * @param inputStream source input stream
-     * @param process target JSONProcess
-     * @throws ProcessIOException if any exception occurred while reading from input stream
+     * Constructor.
+     * @param message exception message
      */
-    public static void populateProcessLogic(final InputStream inputStream, final JSONProcess process) throws ProcessIOException {
-        LOGGER.debug("Populating JSONProcess[{}] JavaScript execution logic", String.valueOf(process.getMetadata()));
-        BufferedInputStream bis = new BufferedInputStream(inputStream);
+    public DataIOException(final String message) {
+        super(message);
+    }
 
-        try {
-            int availableBytes = bis.available();
-            LOGGER.debug("Reading {} bytes of JavaScript execution logic content", availableBytes);
-
-            byte[] buffer = new byte[availableBytes];
-            bis.read(buffer);
-
-            process.setJavascriptContent(new String(buffer));
-        } catch (IOException ex) {
-            throw new ProcessIOException("Error reading process logic file", ex);
-        } finally {
-            IOUtils.closeQuietly(bis);
-        }
+    /**
+     * Constructor.
+     * @param message exception message
+     * @param cause exception cause
+     */
+    public DataIOException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }

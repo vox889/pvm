@@ -34,10 +34,10 @@ import com.ehxnv.pvm.api.io.ProcessDataModelException;
 import com.ehxnv.pvm.api.io.ProcessIOException;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
@@ -105,11 +105,7 @@ class JSONProcessDataModelPopulator {
         } catch (JsonSyntaxException ex) {
             throw new ProcessDataModelException("Invalid process " + dataModelName + " data model structure", ex);
         } finally {
-            try {
-                streamReader.close();
-            } catch (IOException ex) {
-                throw new ProcessIOException("Failed to close input stream", ex);
-            }
+            IOUtils.closeQuietly(streamReader);
         }
         
         return dataModel;

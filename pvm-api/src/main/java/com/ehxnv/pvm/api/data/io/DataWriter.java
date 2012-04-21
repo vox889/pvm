@@ -25,49 +25,33 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.ehxnv.pvm.io.json;
+package com.ehxnv.pvm.api.data.io;
 
-import com.ehxnv.pvm.api.io.ProcessIOException;
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ehxnv.pvm.api.data.Data;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Set;
 
 /**
- * Helper class to populate a {@link JSONProcess} JavaScript execution content.
- * 
+ * A data writer responsible for writing set of data into an output stream or it's own specific type.
+ * @param <T> output type
  * @author Eka Lie
  */
-class JSONProcessLogicPopulator {
-
-    /** Logger. **/
-    private static final Logger LOGGER = LoggerFactory.getLogger(JSONProcessLogicPopulator.class);
+public interface DataWriter<T> {
 
     /**
-     * Populate JSONProcess JavaScript execution logic content from given input stream.
-     * @param inputStream source input stream
-     * @param process target JSONProcess
-     * @throws ProcessIOException if any exception occurred while reading from input stream
+     * Write a set of data into an output stream.
+     * @param outputDatas set of output datas
+     * @param outputStream target output stream
+     * @throws DataIOException if IO exception occured while writing data into the output stream
      */
-    public static void populateProcessLogic(final InputStream inputStream, final JSONProcess process) throws ProcessIOException {
-        LOGGER.debug("Populating JSONProcess[{}] JavaScript execution logic", String.valueOf(process.getMetadata()));
-        BufferedInputStream bis = new BufferedInputStream(inputStream);
+    void writeData(Set<Data> outputDatas, OutputStream outputStream) throws DataIOException;
 
-        try {
-            int availableBytes = bis.available();
-            LOGGER.debug("Reading {} bytes of JavaScript execution logic content", availableBytes);
-
-            byte[] buffer = new byte[availableBytes];
-            bis.read(buffer);
-
-            process.setJavascriptContent(new String(buffer));
-        } catch (IOException ex) {
-            throw new ProcessIOException("Error reading process logic file", ex);
-        } finally {
-            IOUtils.closeQuietly(bis);
-        }
-    }
+    /**
+     * Write a set of data into a specific type.
+     * @param outputDatas set of output datas
+     * @return implementation specific type
+     * @throws DataIOException if IO exception occured while writing data
+     */
+    T writeData(Set<Data> outputDatas) throws DataIOException;
 }

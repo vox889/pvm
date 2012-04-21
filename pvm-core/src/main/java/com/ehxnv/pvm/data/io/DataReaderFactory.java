@@ -25,49 +25,32 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.ehxnv.pvm.io.json;
+package com.ehxnv.pvm.data.io;
 
-import com.ehxnv.pvm.api.io.ProcessIOException;
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import com.ehxnv.pvm.api.data.io.DataReader;
+import com.ehxnv.pvm.data.io.json.JSONDataReader;
 
 /**
- * Helper class to populate a {@link JSONProcess} JavaScript execution content.
- * 
+ * Factory class responsible for creating {@link DataReader}.
  * @author Eka Lie
  */
-class JSONProcessLogicPopulator {
+public class DataReaderFactory {
 
-    /** Logger. **/
-    private static final Logger LOGGER = LoggerFactory.getLogger(JSONProcessLogicPopulator.class);
+    /** Singleton JSON data reader instance. **/
+    private static final DataReader JSON_DATA_READER = new JSONDataReader();
 
     /**
-     * Populate JSONProcess JavaScript execution logic content from given input stream.
-     * @param inputStream source input stream
-     * @param process target JSONProcess
-     * @throws ProcessIOException if any exception occurred while reading from input stream
+     * Private constructor.
      */
-    public static void populateProcessLogic(final InputStream inputStream, final JSONProcess process) throws ProcessIOException {
-        LOGGER.debug("Populating JSONProcess[{}] JavaScript execution logic", String.valueOf(process.getMetadata()));
-        BufferedInputStream bis = new BufferedInputStream(inputStream);
+    private DataReaderFactory() {
+        // do nothing
+    }
 
-        try {
-            int availableBytes = bis.available();
-            LOGGER.debug("Reading {} bytes of JavaScript execution logic content", availableBytes);
-
-            byte[] buffer = new byte[availableBytes];
-            bis.read(buffer);
-
-            process.setJavascriptContent(new String(buffer));
-        } catch (IOException ex) {
-            throw new ProcessIOException("Error reading process logic file", ex);
-        } finally {
-            IOUtils.closeQuietly(bis);
-        }
+    /**
+     * Create JSON based data reader.
+     * @return JSON data reader
+     */
+    public static DataReader createJSONDataReader() {
+        return JSON_DATA_READER;
     }
 }

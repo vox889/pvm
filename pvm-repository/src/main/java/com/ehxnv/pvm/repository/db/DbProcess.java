@@ -30,6 +30,7 @@ package com.ehxnv.pvm.repository.db;
 import javax.persistence.*;
 
 import com.ehxnv.pvm.api.Process;
+import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 
@@ -89,13 +90,7 @@ public final class DbProcess {
         } catch (IOException ex) {
             throw new RuntimeException("Failed to serialize process as bytes", ex);
         } finally {
-            if (oos != null) {
-                try {
-                    oos.close();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
+            IOUtils.closeQuietly(oos);
         }
 
         return baos.toByteArray();

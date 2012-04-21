@@ -25,49 +25,28 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
 
-package com.ehxnv.pvm.io.json;
+package com.ehxnv.pvm.data.io;
 
-import com.ehxnv.pvm.api.io.ProcessIOException;
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ehxnv.pvm.api.data.io.DataWriter;
+import com.ehxnv.pvm.data.io.json.JSONDataWriter;
+import org.junit.Test;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
- * Helper class to populate a {@link JSONProcess} JavaScript execution content.
- * 
+ * Unit test for {@link com.ehxnv.pvm.data.io.DataWriterFactory}.
  * @author Eka Lie
  */
-class JSONProcessLogicPopulator {
-
-    /** Logger. **/
-    private static final Logger LOGGER = LoggerFactory.getLogger(JSONProcessLogicPopulator.class);
+public class DataWriterFactoryTest {
 
     /**
-     * Populate JSONProcess JavaScript execution logic content from given input stream.
-     * @param inputStream source input stream
-     * @param process target JSONProcess
-     * @throws ProcessIOException if any exception occurred while reading from input stream
+     * Test of testCreateJSONDataWriter method, of class DataWriterFactory.
      */
-    public static void populateProcessLogic(final InputStream inputStream, final JSONProcess process) throws ProcessIOException {
-        LOGGER.debug("Populating JSONProcess[{}] JavaScript execution logic", String.valueOf(process.getMetadata()));
-        BufferedInputStream bis = new BufferedInputStream(inputStream);
-
-        try {
-            int availableBytes = bis.available();
-            LOGGER.debug("Reading {} bytes of JavaScript execution logic content", availableBytes);
-
-            byte[] buffer = new byte[availableBytes];
-            bis.read(buffer);
-
-            process.setJavascriptContent(new String(buffer));
-        } catch (IOException ex) {
-            throw new ProcessIOException("Error reading process logic file", ex);
-        } finally {
-            IOUtils.closeQuietly(bis);
-        }
+    @Test
+    public void testCreateJSONDataWriter() {
+        DataWriter dataWriter = DataWriterFactory.createJSONDataWriter();
+        assertNotNull(dataWriter);
+        assertTrue(dataWriter instanceof JSONDataWriter);
     }
 }

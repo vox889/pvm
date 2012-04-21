@@ -31,10 +31,10 @@ import com.ehxnv.pvm.api.io.ProcessIOException;
 import com.ehxnv.pvm.api.io.ProcessStructureException;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
@@ -113,11 +113,7 @@ class JSONProcessDefinitionPopulator {
         } catch (JsonSyntaxException ex) {
             throw new ProcessStructureException("Invalid process definition structure", ex);
         } finally {
-            try {
-                streamReader.close();
-            } catch (IOException ex) {
-                throw new ProcessIOException("Failed to close input stream", ex);
-            }
+            IOUtils.closeQuietly(streamReader);
         }
     }
 

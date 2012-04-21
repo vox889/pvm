@@ -34,35 +34,39 @@
         <artifactId>pvm-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>pvm-repository</artifactId>
-    <name>pvm-repository</name>
+    <artifactId>pvm-connector-http</artifactId>
+    <name>pvm-connector-http</name>
     <packaging>jar</packaging>
 
     <dependencies>
         <!-- Compile Dependencies -->
         <dependency>
             <groupId>com.ehxnv</groupId>
+            <artifactId>pvm-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ehxnv</groupId>
             <artifactId>pvm-repository-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>javax.persistence</artifactId>
+            <groupId>com.ehxnv</groupId>
+            <artifactId>pvm-connector-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <groupId>com.ehxnv</groupId>
+            <artifactId>pvm-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -74,6 +78,16 @@
         <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

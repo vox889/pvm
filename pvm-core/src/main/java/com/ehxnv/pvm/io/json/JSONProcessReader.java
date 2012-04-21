@@ -27,14 +27,15 @@
 
 package com.ehxnv.pvm.io.json;
 
-import com.ehxnv.pvm.api.ProcessMetadata;
 import com.ehxnv.pvm.api.Process;
+import com.ehxnv.pvm.api.ProcessMetadata;
 import com.ehxnv.pvm.api.io.ProcessDataModelException;
 import com.ehxnv.pvm.api.io.ProcessIOException;
 import com.ehxnv.pvm.api.io.ProcessReader;
 import com.ehxnv.pvm.api.io.ProcessStructureException;
 import com.ehxnv.pvm.util.ProcessMetadataHelper;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -128,7 +129,7 @@ public class JSONProcessReader implements ProcessReader {
         } catch (ProcessStructureException ex) {
             throw ex;
         } finally {
-            closeInputStream(definitionInputStream, DEFINITION_FILE_NAME);
+            IOUtils.closeQuietly(definitionInputStream);
         }
     }
 
@@ -146,7 +147,7 @@ public class JSONProcessReader implements ProcessReader {
         } catch (ProcessIOException ex) {
             throw ex;
         } finally {
-            closeInputStream(logicInputStream, LOGIC_FILE_NAME);
+            IOUtils.closeQuietly(logicInputStream);
         }
     }
 
@@ -165,7 +166,7 @@ public class JSONProcessReader implements ProcessReader {
         } catch (ProcessIOException ex) {
             throw ex;
         } finally {
-            closeInputStream(inputDataModelInputStream, INPUT_DATA_MODEL_FILE_NAME);
+            IOUtils.closeQuietly(inputDataModelInputStream);
         }
     }
 
@@ -184,7 +185,7 @@ public class JSONProcessReader implements ProcessReader {
         } catch (ProcessIOException ex) {
             throw ex;
         } finally {
-            closeInputStream(outputDataModelInputStream, OUTPUT_DATA_MODEL_FILE_NAME);
+            IOUtils.closeQuietly(outputDataModelInputStream);
         }
     }
 
@@ -262,20 +263,6 @@ public class JSONProcessReader implements ProcessReader {
             return inputStream;
         } catch (IOException ex) {
             throw new ProcessIOException("Failed to read " + streamName, ex);
-        }
-    }
-
-    /**
-     * Close an input stream.
-     * @param inputStream input stream
-     * @param streamName stream name
-     * @throws ProcessIOException if there is an IO exception occurred during closing
-     */
-    private void closeInputStream(final InputStream inputStream, final String streamName) throws ProcessIOException {
-        try {
-            inputStream.close();
-        } catch (IOException ex) {
-            throw new ProcessIOException("Failed to close " + streamName, ex);
         }
     }
 }
