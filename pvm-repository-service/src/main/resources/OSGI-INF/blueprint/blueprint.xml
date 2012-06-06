@@ -24,46 +24,15 @@
   ~ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
   ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+    <bean id="processRepository" class="com.ehxnv.pvm.repository.db.HSQLProcessRepository">
+        <argument value="process.db" />
+    </bean>
 
-    <parent>
-        <groupId>com.ehxnv</groupId>
-        <artifactId>pvm-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>pvm-repository-api</artifactId>
-    <name>pvm-repository-api</name>
-    <packaging>bundle</packaging>
-
-    <dependencies>
-        <!-- Compile Dependencies -->
-        <dependency>
-            <groupId>com.ehxnv</groupId>
-            <artifactId>pvm-api</artifactId>
-        </dependency>
-
-        <!-- Test Dependencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</project>
+    <bean id="processRepositoryService" class="com.ehxnv.pvm.repository.service.ProcessRepositoryService"
+          init-method="startService" destroy-method="stopService">
+        <argument ref="processRepository" />
+    </bean>
+</blueprint>

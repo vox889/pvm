@@ -30,6 +30,8 @@ package com.ehxnv.pvm.api.repository;
 import com.ehxnv.pvm.api.Process;
 import com.ehxnv.pvm.api.ProcessMetadata;
 
+import java.util.Set;
+
 /**
  * Represents an repository of processes that allows:
  * <ul>
@@ -37,6 +39,7 @@ import com.ehxnv.pvm.api.ProcessMetadata;
  *  <li>update process in repository</li>
  *  <li>find process from repository</li>
  *  <li>delete process from repository</li>
+ *  <li>get available processes from repository</li>
  * </ul>
  * @author Eka Lie
  */
@@ -80,4 +83,10 @@ public interface ProcessRepository {
      * @return true if process is deleted, false otherwise
      */
     boolean deleteProcess(ProcessMetadata processMetadata);
+
+    /**
+     * Get available processes.
+     * @return available processes
+     */
+    Set<Process> getProcesses();
 }

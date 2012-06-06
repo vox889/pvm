@@ -41,6 +41,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -109,6 +110,11 @@ public class HSQLProcessRepositoryTest {
             processRepository.updateProcess(new ProcessMetadata("crazyProcess", "2.0"), updatedProcessMock);
             fail("should throw ProcessNotExistException when updating non exising process");
         } catch (ProcessNotExistException ex) { }
+
+        // get all available processes from repository
+        Set<Process> processes = processRepository.getProcesses();
+        assertEquals(1, processes.size());
+        assertEquals(processMetadata, processes.iterator().next().getMetadata());
 
         // delete process from repository and validate that it's successful
         assertTrue(processRepository.deleteProcess(processMetadata));

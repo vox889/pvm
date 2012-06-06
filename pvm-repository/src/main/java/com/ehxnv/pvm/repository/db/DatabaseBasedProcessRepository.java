@@ -32,9 +32,14 @@ import com.ehxnv.pvm.api.ProcessMetadata;
 import com.ehxnv.pvm.api.repository.ProcessAlreadyExistException;
 import com.ehxnv.pvm.api.repository.ProcessNotExistException;
 import com.ehxnv.pvm.api.repository.ProcessRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Database based process repository.
@@ -42,6 +47,8 @@ import javax.persistence.criteria.CriteriaBuilder;
  */
 public abstract class DatabaseBasedProcessRepository implements ProcessRepository {
 
+    /** Logger. **/
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseBasedProcessRepository.class);
     /** Entity manager factory instance. **/
     private EntityManagerFactory entityManagerFactory;
 
@@ -50,6 +57,7 @@ public abstract class DatabaseBasedProcessRepository implements ProcessRepositor
      */
     @Override
     public void initialize() {
+        LOGGER.info("Initializing repository {}", getRepositoryName());
         entityManagerFactory = buildEntityManagerFactory();
     }
 
@@ -59,7 +67,14 @@ public abstract class DatabaseBasedProcessRepository implements ProcessRepositor
     @Override
     public void shutdown() {
         entityManagerFactory.close();
+        LOGGER.info("Shut down repository {}", getRepositoryName());
     }
+
+    /**
+     * Get repository name.
+     * @return repository name
+     */
+    protected abstract String getRepositoryName();
 
     /**
      * {@inheritDoc}
@@ -74,7 +89,9 @@ public abstract class DatabaseBasedProcessRepository implements ProcessRepositor
             em.persist(new DbProcess(process));
             tx.commit();
         } catch (PersistenceException ex) {
-            tx.rollback();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
             throw new ProcessAlreadyExistException(process.getMetadata());
         } finally {
             em.close();
@@ -130,10 +147,30 @@ public abstract class DatabaseBasedProcessRepository implements ProcessRepositor
             tx.commit();
             return true;
         } catch (NoResultException ex) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
             return false;
         } finally {
             entityManager.close();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Process> getProcesses() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        TypedQuery<DbProcess> query = entityManager.createQuery("SELECT dbp FROM DbProcess dbp", DbProcess.class);
+        List<DbProcess> dbProcesses = query.getResultList();
+
+        Set<Process> processes = new HashSet<Process>();
+        for (DbProcess dbProcess : dbProcesses) {
+            processes.add(dbProcess.getProcess());
+        }
+
+        return processes;
     }
 
     /**
@@ -143,7 +180,7 @@ public abstract class DatabaseBasedProcessRepository implements ProcessRepositor
      * @return query
      */
     private static final Query createFindProcessByMetadataQuery(final EntityManager entityManager, final ProcessMetadata processMetadata) {
-        Query query = entityManager.createQuery("FROM DbProcess dbp WHERE dbp.processName = :procName AND dbp.processVersion = :procVer");
+        Query query = entityManager.createQuery("SELECT dbp FROM DbProcess dbp WHERE dbp.processName = :procName AND dbp.processVersion = :procVer");
         query.setParameter("procName", processMetadata.getName());
         query.setParameter("procVer", processMetadata.getVersion());
         return query;

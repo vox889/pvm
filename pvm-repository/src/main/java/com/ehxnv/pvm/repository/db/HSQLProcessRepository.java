@@ -27,9 +27,11 @@
 
 package com.ehxnv.pvm.repository.db;
 
+import org.eclipse.persistence.config.PersistenceUnitProperties;
+import org.eclipse.persistence.jpa.PersistenceProvider;
+
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -54,8 +56,19 @@ public class HSQLProcessRepository extends DatabaseBasedProcessRepository {
      */
     @Override
     protected EntityManagerFactory buildEntityManagerFactory() {
-        Map<String, String> emfProps = Collections.singletonMap("javax.persistence.jdbc.url",
-                "jdbc:hsqldb:file:" + dbName + ";shutdown=true");
-        return Persistence.createEntityManagerFactory("repository-hsql", emfProps);
+        Map<String, Object> connectionProperties = new HashMap<String, Object>();
+        connectionProperties.put(PersistenceUnitProperties.CLASSLOADER, this.getClass().getClassLoader());
+        connectionProperties.put("javax.persistence.jdbc.url", "jdbc:hsqldb:file:" + dbName + ";shutdown=true");
+
+        PersistenceProvider pp = new PersistenceProvider();
+        return pp.createEntityManagerFactory("repository-hsql", connectionProperties);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getRepositoryName() {
+        return "HSQL - " + dbName;
     }
 }

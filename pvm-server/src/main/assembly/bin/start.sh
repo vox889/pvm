@@ -1,0 +1,1 @@
+java -cp "../bootstrap/*" -Dlogback.configurationFile=conf/logback.xml com.ehxnv.pvm.server.Server

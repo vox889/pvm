@@ -34,15 +34,15 @@
         <artifactId>pvm-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>pvm-repository-api</artifactId>
-    <name>pvm-repository-api</name>
+    <artifactId>pvm-repository-service</artifactId>
+    <name>pvm-repository-service</name>
     <packaging>bundle</packaging>
 
     <dependencies>
         <!-- Compile Dependencies -->
         <dependency>
             <groupId>com.ehxnv</groupId>
-            <artifactId>pvm-api</artifactId>
+            <artifactId>pvm-repository</artifactId>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -61,6 +61,10 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
+                        <Import-Package>
+                              !org.osgi.service.blueprint,
+                              *
+                          </Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
