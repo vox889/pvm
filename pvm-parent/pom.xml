@@ -97,7 +97,7 @@
             </dependency>
             <dependency>
                 <groupId>com.ehxnv</groupId>
-                <artifactId>pvm-repository</artifactId>
+                <artifactId>pvm-repository-db</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
             <dependency>

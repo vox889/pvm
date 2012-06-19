@@ -13,7 +13,7 @@
         <module>pvm-api</module>
         <module>pvm-core</module>
         <module>pvm-repository-api</module>
-        <module>pvm-repository</module>
+        <module>pvm-repository-db</module>
         <module>pvm-repository-service</module>
         <module>pvm-connector-api</module>
         <module>pvm-connector-http</module>

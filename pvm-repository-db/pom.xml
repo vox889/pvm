@@ -34,8 +34,8 @@
         <artifactId>pvm-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>pvm-repository</artifactId>
-    <name>pvm-repository</name>
+    <artifactId>pvm-repository-db</artifactId>
+    <name>pvm-repository-db</name>
     <packaging>bundle</packaging>
 
     <dependencies>

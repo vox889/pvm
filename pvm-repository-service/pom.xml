@@ -42,7 +42,7 @@
         <!-- Compile Dependencies -->
         <dependency>
             <groupId>com.ehxnv</groupId>
-            <artifactId>pvm-repository</artifactId>
+            <artifactId>pvm-repository-db</artifactId>
         </dependency>
 
         <!-- Test Dependencies -->
