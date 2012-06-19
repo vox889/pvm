@@ -115,6 +115,16 @@
                 <artifactId>pvm-connector-http</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.ehxnv</groupId>
+                <artifactId>pvm-deployer-api</artifactId>
+                <version>${pvm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ehxnv</groupId>
+                <artifactId>pvm-deployer-file</artifactId>
+                <version>${pvm.version}</version>
+            </dependency>
 
             <!-- Compile Dependencies -->
             <dependency>
