@@ -102,11 +102,6 @@
             </dependency>
             <dependency>
                 <groupId>com.ehxnv</groupId>
-                <artifactId>pvm-repository-service</artifactId>
-                <version>${pvm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ehxnv</groupId>
                 <artifactId>pvm-connector-api</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
@@ -176,60 +171,6 @@
                 <groupId>org.mozilla.javascript</groupId>
                 <artifactId>com.springsource.org.mozilla.javascript</artifactId>
                 <version>1.7.0.R2</version>
-            </dependency>
-
-            <!-- OSGI Related Dependencies -->
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>4.2.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.framework</artifactId>
-                <version>4.0.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.shell.remote</artifactId>
-                <version>1.1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.gogo.runtime</artifactId>
-                <version>0.10.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.gogo.command</artifactId>
-                <version>0.10.0</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.osgi</groupId>
-                        <artifactId>org.eclipse.osgi</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.gogo.shell</artifactId>
-                <version>0.10.0</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.eclipse.osgi</groupId>
-                        <artifactId>org.eclipse.osgi</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.gemini.blueprint</groupId>
-                <artifactId>gemini-blueprint-core</artifactId>
-                <version>1.0.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.gemini.blueprint</groupId>
-                <artifactId>gemini-blueprint-extender</artifactId>
-                <version>1.0.0.RELEASE</version>
             </dependency>
 
             <!-- Logging Dependencies -->
