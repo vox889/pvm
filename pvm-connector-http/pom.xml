@@ -30,7 +30,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.ehxnv</groupId>
+        <groupId>com.ehxnv.pvm</groupId>
         <artifactId>pvm-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -41,19 +41,19 @@
     <dependencies>
         <!-- Compile Dependencies -->
         <dependency>
-            <groupId>com.ehxnv</groupId>
+            <groupId>com.ehxnv.pvm</groupId>
             <artifactId>pvm-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ehxnv</groupId>
+            <groupId>com.ehxnv.pvm</groupId>
             <artifactId>pvm-repository-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ehxnv</groupId>
+            <groupId>com.ehxnv.pvm</groupId>
             <artifactId>pvm-connector-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ehxnv</groupId>
+            <groupId>com.ehxnv.pvm</groupId>
             <artifactId>pvm-core</artifactId>
         </dependency>
         <dependency>

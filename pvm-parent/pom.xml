@@ -29,7 +29,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ehxnv</groupId>
+    <groupId>com.ehxnv.pvm</groupId>
     <artifactId>pvm-parent</artifactId>
     <name>pvm-parent</name>
     <version>1.0-SNAPSHOT</version>
@@ -81,42 +81,42 @@
         <dependencies>
             <!-- PVM Dependencies -->
             <dependency>
-                <groupId>com.ehxnv</groupId>
+                <groupId>com.ehxnv.pvm</groupId>
                 <artifactId>pvm-api</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ehxnv</groupId>
+                <groupId>com.ehxnv.pvm</groupId>
                 <artifactId>pvm-core</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ehxnv</groupId>
+                <groupId>com.ehxnv.pvm</groupId>
                 <artifactId>pvm-repository-api</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ehxnv</groupId>
+                <groupId>com.ehxnv.pvm</groupId>
                 <artifactId>pvm-repository-db</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ehxnv</groupId>
+                <groupId>com.ehxnv.pvm</groupId>
                 <artifactId>pvm-connector-api</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ehxnv</groupId>
+                <groupId>com.ehxnv.pvm</groupId>
                 <artifactId>pvm-connector-http</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ehxnv</groupId>
+                <groupId>com.ehxnv.pvm</groupId>
                 <artifactId>pvm-deployer-api</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.ehxnv</groupId>
+                <groupId>com.ehxnv.pvm</groupId>
                 <artifactId>pvm-deployer-file</artifactId>
                 <version>${pvm.version}</version>
             </dependency>
